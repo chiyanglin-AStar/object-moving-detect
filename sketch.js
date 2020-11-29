@@ -21,7 +21,7 @@ var options = {
      video: {
 
          facingMode: {
-          exact: "user"
+          exact: "environment"
         }
      }
    };
@@ -43,16 +43,18 @@ function gotDetections(error, results) {
 
 function setup() {
   createCanvas(640, 480);
-  video = createCapture(VIDEO);
+  video = createCapture(options);
   video.size(640, 480);
   video.hide();
 
   // For Switch Camera
+  /*
   capture = createCapture(options);
 
   switchBtn = createButton('Switch Camera');
   switchBtn.position(19, 19);
   switchBtn.mousePressed(switchCamera);
+  */
 
   detector.detect(video, gotDetections);
 }
@@ -81,7 +83,7 @@ function draw() {
   }
 }
 
-
+/*
 function switchCamera()
 {
   switchFlag = !switchFlag;
@@ -122,3 +124,4 @@ function stopCapture() {
 
   capture.elt.srcObject = null;
 }
+*/
