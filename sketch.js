@@ -12,6 +12,22 @@ let video;
 let detector;
 let detections = [];
 
+// For Camera Switch
+var capture;
+let switchFlag = false;
+let switchBtn;
+
+var options = {
+     video: {
+
+         facingMode: {
+          exact: "user"
+        }
+     }
+   };
+
+
+
 function preload() {
   // img = loadImage('dog_cat.jpg');
   detector = ml5.objectDetector('cocossd');
@@ -30,6 +46,14 @@ function setup() {
   video = createCapture(VIDEO);
   video.size(640, 480);
   video.hide();
+
+  // For Switch Camera
+  capture = createCapture(options);
+
+  switchBtn = createButton('Switch Camera');
+  switchBtn.position(19, 19);
+  switchBtn.mousePressed(switchCamera);
+
   detector.detect(video, gotDetections);
 }
 
@@ -37,7 +61,7 @@ function draw() {
   image(video, 0, 0);
   textSize(14);
   text(' detect length '+ detections.length ,  20, 24);
-  
+
   for (let i = 0; i < detections.length; i++) {
     let object = detections[i];
     let s = second();
@@ -55,4 +79,46 @@ function draw() {
     textSize(24);
     text(object.label, object.x + 10, object.y + 24);
   }
+}
+
+
+function switchCamera()
+{
+  switchFlag = !switchFlag;
+  stopCapture();
+  if(switchFlag==true)
+  {
+   capture.remove();
+   options = {
+     video: {
+         facingMode: {
+          exact: "environment"
+        }
+     }
+   };
+
+  }
+  else
+  {
+   capture.remove();
+   options = {
+     video: {
+         facingMode: {
+          exact: "user"
+        }
+     }
+   };
+  }
+  capture = createCapture(options);
+}
+
+function stopCapture() {
+  let stream = capture.elt.srcObject;
+  let tracks = stream.getTracks();
+
+  tracks.forEach(function(track) {
+    track.stop();
+  });
+
+  capture.elt.srcObject = null;
 }
