@@ -35,7 +35,9 @@ function setup() {
 
 function draw() {
   image(video, 0, 0);
-
+  textSize(14);
+  text(' detect length '+ detections.length ,  20, 24);
+  
   for (let i = 0; i < detections.length; i++) {
     let object = detections[i];
     let s = second();
