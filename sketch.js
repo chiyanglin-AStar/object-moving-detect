@@ -23,7 +23,7 @@ let switchBtn;
 var options = {
      video: {
          facingMode: {
-          exact: "environment"
+          exact: "user"
         }
      }
    };
@@ -73,9 +73,9 @@ function gotDetections(error, results) {
 }
 
 function setup() {
-  createCanvas(640, 480 + 60);
+  createCanvas(640, 480);
   textSize(14);
-  text(' preparing ',5, 5);
+  text(' preparing ',5, 10);
 
   if (  !"mediaDevices" in navigator ||
         !"getUserMedia" in navigator.mediaDevices) {
@@ -99,28 +99,28 @@ function setup() {
 }
 
 function draw() {
-  image(video, 0, 60);
+  image(video, 0, 0);
 
   textSize(14);
-  text(' ready ',5, 5);
-  text(' detect length '+ detections.length ,  20, 24);
+  text(' ready ',5, 10);
+  text(' detect length '+ detections.length ,  5, 24);
 
   for (let i = 0; i < detections.length; i++) {
     let object = detections[i];
     let s = second();
     let millisecond = millis();
 
-    stroke(0, 200+255, 0);
+    stroke(0, 255, 0);
     strokeWeight(4);
     noFill();
-    rect(object.x, object.y + 200, object.width, object.height);
+    rect(object.x, object.y, object.width, object.height);
     noStroke();
     fill(255);
     textSize(14);
-    text('Curr sec , ms :' + s+','+ millisecond.toFixed(1) +'\n',object.x + 10,200 + object.y -25);
-    text(' ('+ object.x.toFixed(1) +','+object.y.toFixed(1)+')',object.x + 10,200 + object.y -10 );
+    text('Curr sec , ms :' + s+','+ millisecond.toFixed(1) +'\n',object.x + 10, object.y -25);
+    text(' ('+ object.x.toFixed(1) +','+object.y.toFixed(1)+')',object.x + 10,  object.y -10 );
     textSize(24);
-    text(object.label, object.x + 10, 200+ object.y + 24);
+    text(object.label, object.x + 10, object.y + 24);
   }
 
 }
