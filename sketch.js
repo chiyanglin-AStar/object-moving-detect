@@ -154,6 +154,7 @@ function switchCamera()
   if(!video){   //  This part should be rewrited throught " Promise "
        console.log(" after switch camera , capture create fail ");
   }
+  detector.detect(video, gotDetections);
 }
 
 function stopCapture() {
