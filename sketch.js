@@ -8,7 +8,8 @@
 // p5.js Web Editor - Webcam Persistence: https://editor.p5js.org/codingtrain/sketches/Vt9xeTxWJ
 
 
-//  Add switch Camera code , it is not complete by chiyang
+//  Add switch Camera code , it is not complete by chiyang , remark them ,
+//  just keet change camera from user to environment as default
 // let img;
 let video;
 let detector;
@@ -22,10 +23,11 @@ let switchBtn;
 var options = {
      video: {
          facingMode: {
-          exact: "user"
+          exact: "environment"
         }
      }
    };
+
 /*  Keep for reference
 // video constraints
 const constraints = {
@@ -71,7 +73,7 @@ function gotDetections(error, results) {
 }
 
 function setup() {
-  ctxt = createCanvas(640, 480 + 200);
+  createCanvas(640, 480 + 200);
   //initializeCamera();
   if (  !"mediaDevices" in navigator ||
         !"getUserMedia" in navigator.mediaDevices) {
@@ -99,7 +101,6 @@ function draw() {
   image(video, 0, 200);
 
   textSize(14);
-
   text(' detect length '+ detections.length ,  20, 24);
 
   for (let i = 0; i < detections.length; i++) {
