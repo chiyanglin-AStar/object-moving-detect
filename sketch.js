@@ -73,8 +73,10 @@ function gotDetections(error, results) {
 }
 
 function setup() {
-  createCanvas(640, 480 + 200);
-  //initializeCamera();
+  createCanvas(640, 480 + 60);
+  textSize(14);
+  text(' preparing ',5, 5);
+
   if (  !"mediaDevices" in navigator ||
         !"getUserMedia" in navigator.mediaDevices) {
           alert("Camera API is not available in your browser");
@@ -88,19 +90,19 @@ function setup() {
   video.hide();
 
   // For Switch Camera
-
-  //capture = createCapture(options);
+  /*
   switchBtn = createButton('Switch Camera');
   switchBtn.position(19, 19);
   switchBtn.mousePressed(switchCamera);
-
+  */
   detector.detect(video, gotDetections);
 }
 
 function draw() {
-  image(video, 0, 200);
+  image(video, 0, 60);
 
   textSize(14);
+  text(' ready ',5, 5);
   text(' detect length '+ detections.length ,  20, 24);
 
   for (let i = 0; i < detections.length; i++) {
