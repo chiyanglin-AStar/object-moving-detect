@@ -23,7 +23,7 @@ let switchBtn;
 var options = {
      video: {
          facingMode: {
-          exact: "user"
+          exact: "environment"
         }
      }
    };
